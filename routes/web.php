@@ -33,3 +33,5 @@ Route::get('link/verification/{id}/{tokenRegister?}',[
     'as' => 'verification' ,
     'uses' => 'Auth\VerifyController@index',
 ]);
+
+Route::get('sendmail', 'Auth\UserRegisterController@testMail');
