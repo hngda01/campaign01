@@ -50,3 +50,4 @@ Route::get('link/verification/{id}/{tokenRegister?}',[
 ]);
 
 Route::get('sendmail', 'Auth\UserRegisterController@testMail');
+Route::get('sendmailqueue', 'Auth\UserRegisterController@enqueue');
