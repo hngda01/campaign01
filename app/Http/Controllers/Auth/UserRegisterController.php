@@ -7,7 +7,9 @@ use Validator;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepositoryInterface;
-use Mail;
+use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
+use App\Jobs\SendEmail;
 
 class UserRegisterController extends Controller
 {
@@ -38,6 +40,15 @@ class UserRegisterController extends Controller
         return view('auth.register');
     }
 
+    public function enqueue()
+    {
+        error_log('hehe');
+        $emailJob = (new SendEmail());//->delay(Carbon::now()->addSeconds(1));
+        dispatch($emailJob);
+
+        echo config('queue.default');
+    }
+
     public function testMail()
     {
         $to_name = 'Hai';
@@ -48,7 +59,7 @@ class UserRegisterController extends Controller
         Mail::send('email.register', $data, function($message) use ($to_name, $to_email)
             {
                 $message->to($to_email, $to_name)->subject('Laravel Test Mail 2');
-                $message->from(env('MAIL_FROM_ADDRESS'),'Test Mail');
+                $message->from('campaign.hanu@gmail.com','campaign.hanu@gmail.com');
             });
         return 'hello';
     }

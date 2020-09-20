@@ -19,6 +19,21 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::get('login',[
+    'as' => 'get_login' ,
+    'uses' => 'Auth\UserLoginController@getLogin',
+]);
+
+Route::post('login',[
+    'as' => 'post_login' ,
+    'uses' => 'Auth\UserLoginController@postLogin',
+]);
+
+Route::get('logout',[
+    'as' => 'logout' ,
+    'uses' => 'Auth\UserLoginController@logout',
+]);
+
 Route::get('register',[
     'as' => 'register' ,
     'uses' => 'Auth\UserRegisterController@getRegister',
@@ -35,3 +50,4 @@ Route::get('link/verification/{id}/{tokenRegister?}',[
 ]);
 
 Route::get('sendmail', 'Auth\UserRegisterController@testMail');
+Route::get('sendmailqueue', 'Auth\UserRegisterController@enqueue');
